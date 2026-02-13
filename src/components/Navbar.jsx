@@ -54,8 +54,8 @@ const Navbar = () => {
             <div style={logoStyle}>MyPortfolio</div>
             <div style={linkContainerStyle}>
                 <a href="#hero" style={linkStyle}>Home</a>
-                <a href="#about" style={linkStyle}>About</a>
                 <a href="#projects" style={linkStyle}>Projects</a>
+                <a href="#hobbies" style={linkStyle}>Hobbies</a>
                 <a href="#contact" style={linkStyle}>Contact</a>
             </div>
         </nav>
