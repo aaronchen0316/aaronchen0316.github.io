@@ -1,10 +1,10 @@
 const Footer = () => {
     const footerStyle = {
-        padding: '2rem',
+        padding: '1.5rem',
         textAlign: 'center',
-        background: '#0f172a',
-        color: '#64748b',
-        fontSize: '0.9rem'
+        background: 'var(--footer-bg)',
+        color: 'var(--text-color-secondary)',
+        fontSize: '0.85rem'
     };
 
     return (

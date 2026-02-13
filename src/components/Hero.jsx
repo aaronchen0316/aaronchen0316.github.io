@@ -1,33 +1,37 @@
 const Hero = () => {
     const sectionStyle = {
-        height: '100vh',
+        height: '80vh', /* More compact hero */
+        minHeight: '500px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        padding: '0 10%',
-        background: 'radial-gradient(circle at top right, rgba(56, 189, 248, 0.1) 0%, transparent 40%)',
+        padding: '0 1.5rem',
+        maxWidth: '1000px',
+        margin: '0 auto',
+        // background: 'radial-gradient(circle at top right, rgba(56, 189, 248, 0.1) 0%, transparent 40%)', // Removed for clean look
     };
 
     const headingStyle = {
-        fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-        marginBottom: '1rem',
-        background: 'linear-gradient(to right, #fff, #94a3b8)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
+        fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+        marginBottom: '0.5rem',
+        color: 'var(--text-color)',
+        fontWeight: '700',
     };
 
     const subHeadingStyle = {
         fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-        color: 'var(--primary-color)',
-        marginBottom: '2rem',
+        color: 'var(--text-color-secondary)',
+        marginBottom: '1.5rem',
+        fontWeight: '400',
     };
 
     const pStyle = {
-        maxWidth: '600px',
-        fontSize: '1.1rem',
-        color: '#94a3b8',
-        marginBottom: '3rem',
+        maxWidth: '540px',
+        fontSize: '1.05rem',
+        color: 'var(--text-color-secondary)',
+        marginBottom: '2rem',
+        lineHeight: '1.7',
     };
 
     return (

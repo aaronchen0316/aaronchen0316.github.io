@@ -20,7 +20,7 @@ const Navbar = () => {
         top: 0,
         left: 0,
         width: '100%',
-        padding: scrolled ? '1rem 2rem' : '1.5rem 2rem',
+        padding: scrolled ? '0.8rem 1.5rem' : '1.2rem 1.5rem',
         backgroundColor: scrolled ? 'var(--nav-bg)' : 'transparent',
         backdropFilter: scrolled ? 'blur(10px)' : 'none',
         transition: 'all 0.3s ease',
@@ -28,24 +28,25 @@ const Navbar = () => {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        boxShadow: scrolled ? '0 4px 6px -1px rgba(0, 0, 0, 0.1)' : 'none'
+        borderBottom: scrolled ? '1px solid var(--border-color)' : 'none'
     };
 
     const logoStyle = {
-        fontSize: '1.5rem',
-        fontWeight: 'bold',
-        color: 'var(--primary-color)',
+        fontSize: '1.25rem',
+        fontWeight: '700',
+        color: 'var(--text-color)',
+        letterSpacing: '-0.5px'
     };
 
     const linkContainerStyle = {
         display: 'flex',
-        gap: '2rem',
+        gap: '1.5rem',
     };
 
     const linkStyle = {
-        color: '#fff',
+        color: 'var(--text-color)',
         fontWeight: '500',
-        fontSize: '1rem',
+        fontSize: '0.95rem',
     };
 
     return (
