@@ -21,14 +21,14 @@ const Navbar = () => {
         left: 0,
         width: '100%',
         padding: scrolled ? '0.8rem 1.5rem' : '1.2rem 1.5rem',
-        backgroundColor: scrolled ? 'var(--nav-bg)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(10px)' : 'none',
+        backgroundColor: 'var(--nav-bg)', // Always have background on mobile
+        backdropFilter: 'blur(10px)',
         transition: 'all 0.3s ease',
         zIndex: 1000,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderBottom: scrolled ? '1px solid var(--border-color)' : 'none'
+        borderBottom: '1px solid var(--border-color)' // Always show border
     };
 
     const logoStyle = {
@@ -49,16 +49,37 @@ const Navbar = () => {
         fontSize: '0.95rem',
     };
 
+    // Add media query styles for mobile
+    const mobileStyles = `
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.6rem 1rem !important;
+            }
+            nav > div:first-child {
+                font-size: 1rem !important;
+            }
+            nav > div:last-child {
+                gap: 0.8rem !important;
+            }
+            nav a {
+                font-size: 0.85rem !important;
+            }
+        }
+    `;
+
     return (
-        <nav style={navStyle}>
-            <div style={logoStyle}>MyPortfolio</div>
-            <div style={linkContainerStyle}>
-                <a href="#hero" style={linkStyle}>Home</a>
-                <a href="#projects" style={linkStyle}>Projects</a>
-                <a href="#hobbies" style={linkStyle}>Hobbies</a>
-                <a href="#contact" style={linkStyle}>Contact</a>
-            </div>
-        </nav>
+        <>
+            <style>{mobileStyles}</style>
+            <nav style={navStyle}>
+                <div style={logoStyle}>MyPortfolio</div>
+                <div style={linkContainerStyle}>
+                    <a href="#hero" style={linkStyle}>Home</a>
+                    <a href="#projects" style={linkStyle}>Projects</a>
+                    <a href="#hobbies" style={linkStyle}>Hobbies</a>
+                    <a href="#contact" style={linkStyle}>Contact</a>
+                </div>
+            </nav>
+        </>
     );
 };
 

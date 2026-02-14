@@ -42,6 +42,8 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  padding-top: 70px;
+  /* Account for fixed navbar height */
 }
 
 a {
@@ -107,4 +109,76 @@ button:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  :root {
+    --spacing-section: 3rem;
+    /* Increased for better section separation */
+  }
+
+  body {
+    padding-top: 60px;
+    /* Slightly less padding for mobile navbar */
+  }
+
+  section {
+    padding: var(--spacing-section) 1rem;
+  }
+
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Ensure sections have clear separation */
+  section#hero {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    /* Extra bottom padding for separation */
+    min-height: 70vh;
+    /* Slightly shorter hero on mobile */
+  }
+
+  section#projects {
+    padding-top: 4rem;
+    /* Extra top padding for separation from hero */
+    margin-top: 0;
+  }
+
+  section#hobbies,
+  section#contact {
+    margin-top: 1rem;
+    /* Additional spacing between sections */
+  }
+}
+
+/* Extra small screens (iPhone SE and similar) */
+@media (max-width: 400px) {
+  section#hero {
+    padding-bottom: 6rem !important;
+    /* Extra spacing for very small screens */
+  }
+
+  section#projects {
+    padding-top: 7rem !important;
+    /* Large gap before projects */
+  }
 }

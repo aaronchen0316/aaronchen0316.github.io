@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Projects = () => {
     const papers = [
@@ -19,28 +19,24 @@ const Projects = () => {
             categories: ["Machine Learning", "Force Fields", "Crystal Growth"],
             link: "https://pubs.acs.org/doi/abs/10.1021/acs.jctc.3c00587",
             image: "/papers/force field paper.webp"
-            // Note: Updated extension to .webp as requested
         },
         {
             title: "Diffusion-limited crystal growth of gallium nitride using active machine learning",
             categories: ["Active Learning", "Gallium Nitride", "Crystal Growth"],
             link: "https://pubs.acs.org/doi/abs/10.1021/acs.cgd.3c01504",
             image: "/papers/gan paper.webp"
-            // Note: Updated extension to .webp as requested
         },
         {
             title: "A multiscale approach to uncover the self-assembly of ligand-covered palladium nanocubes",
             categories: ["Multiscale Modeling", "Self-Assembly", "Nanocrystals"],
             link: "https://pubs.rsc.org/en/content/articlelanding/2023/sm/d3sm01140b/unauth",
             image: "/papers/pd.jpeg"
-            // Note: Updated extension to .jpeg as requested
         },
         {
             title: "Steering Amine-CO2 Chemistry: A Molecular Insight into the Amino Site Relationship of Carbamate and Protonated Amine",
             categories: ["CO2 Capture", "Molecular Insight", "Amine Chemistry"],
             link: "https://pubs.acs.org/doi/full/10.1021/acsomega.5c03663",
             image: "/papers/solvent.webp"
-            // Note: Updated extension to .webp as requested
         },
         {
             title: "Neutrophil membrane-coated nanoparticles inhibit synovial inflammation and alleviate joint damage in inflammatory arthritis",
@@ -51,7 +47,21 @@ const Projects = () => {
     ];
 
     const [startIndex, setStartIndex] = useState(0);
-    const visibleCount = 3;
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile screen size
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const visibleCount = isMobile ? 1 : 3;
 
     const nextSlide = () => {
         setStartIndex((prev) => (prev + 1) % papers.length);
@@ -80,13 +90,13 @@ const Projects = () => {
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        aspectRatio: '1 / 1', // 1:1 Aspect Ratio
+        aspectRatio: '1 / 1',
         height: 'auto',
         textDecoration: 'none'
     };
 
     const placeholderStyle = {
-        height: '50%', // Fixed 50% height (roughly 200px+ depending on screen)
+        height: '50%',
         width: '100%',
         background: 'linear-gradient(135deg, #e5e7eb 0%, #f3f4f6 100%)',
         display: 'flex',
@@ -108,12 +118,12 @@ const Projects = () => {
                         onClick={prevSlide}
                         style={{
                             cursor: 'pointer',
-                            fontSize: '2rem',
+                            fontSize: isMobile ? '1.5rem' : '2rem',
                             background: 'none',
                             border: 'none',
                             color: 'var(--text-color-secondary)',
                             fontWeight: 300,
-                            padding: '0 1rem',
+                            padding: isMobile ? '0 0.5rem' : '0 1rem',
                             userSelect: 'none'
                         }}
                     >
@@ -124,7 +134,7 @@ const Projects = () => {
                     <div style={{ overflow: 'hidden', flex: 1 }}>
                         <div style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(3, 1fr)',
+                            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
                             gap: '1.5rem',
                         }}>
                             {getVisiblePapers().map((paper, index) => (
@@ -133,7 +143,12 @@ const Projects = () => {
                                     href={paper.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={cardStyle}
+                                    style={{
+                                        ...cardStyle,
+                                        // Scale up cards by 10% on mobile
+                                        transform: isMobile ? 'scale(1.1)' : 'scale(1)',
+                                        margin: isMobile ? '1.5rem 0' : '0'
+                                    }}
                                 >
                                     {/* Paper Image or Placeholder */}
                                     {paper.image ? (
@@ -142,9 +157,9 @@ const Projects = () => {
                                             alt={paper.title}
                                             style={{
                                                 width: '100%',
-                                                height: '50%', // Fixed 50% height
-                                                objectFit: 'contain', // Prevents cropping, fits entire image
-                                                background: '#fff', // White background for letterboxing
+                                                height: '50%',
+                                                objectFit: 'contain',
+                                                background: '#fff',
                                                 borderBottom: '1px solid var(--border-color)',
                                                 display: 'block'
                                             }}
@@ -167,7 +182,7 @@ const Projects = () => {
                                         <h3 style={{
                                             color: 'var(--text-color)',
                                             marginBottom: '0.5rem',
-                                            fontSize: '0.95rem',
+                                            fontSize: isMobile ? '1rem' : '0.95rem',
                                             lineHeight: '1.3',
                                             fontWeight: 600,
                                             margin: 0,
@@ -182,7 +197,7 @@ const Projects = () => {
                                         <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginTop: 'auto' }}>
                                             {paper.categories.map(cat => (
                                                 <span key={cat} style={{
-                                                    fontSize: '0.7rem',
+                                                    fontSize: isMobile ? '0.65rem' : '0.7rem',
                                                     color: 'var(--text-color-secondary)',
                                                     border: '1px solid var(--border-color)',
                                                     padding: '0.1rem 0.5rem',
@@ -205,12 +220,12 @@ const Projects = () => {
                         onClick={nextSlide}
                         style={{
                             cursor: 'pointer',
-                            fontSize: '2rem',
+                            fontSize: isMobile ? '1.5rem' : '2rem',
                             background: 'none',
                             border: 'none',
                             color: 'var(--text-color-secondary)',
                             fontWeight: 300,
-                            padding: '0 1rem',
+                            padding: isMobile ? '0 0.5rem' : '0 1rem',
                             userSelect: 'none'
                         }}
                     >

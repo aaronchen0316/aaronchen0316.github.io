@@ -1,15 +1,30 @@
+import { useState, useEffect } from 'react';
+
 const Hero = () => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile screen size
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const sectionStyle = {
-        height: '80vh', /* More compact hero */
-        minHeight: '500px',
+        height: isMobile ? 'auto' : '80vh', // Auto height on mobile
+        minHeight: isMobile ? 'auto' : '500px', // No min-height on mobile
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: isMobile ? 'flex-start' : 'center', // Top-align on mobile
         alignItems: 'flex-start',
-        padding: '0 1.5rem',
+        padding: isMobile ? '3rem 1rem 5rem' : '0 1.5rem', // Generous padding on mobile
         maxWidth: '1000px',
         margin: '0 auto',
-        // background: 'radial-gradient(circle at top right, rgba(56, 189, 248, 0.1) 0%, transparent 40%)', // Removed for clean look
     };
 
     const headingStyle = {
