@@ -1,86 +1,88 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react'
+import { navLinks } from '../content/siteContent'
 
-const Navbar = () => {
-    const [scrolled, setScrolled] = useState(false);
+const SECTION_IDS = navLinks.map((link) => link.href.replace('#', ''))
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const isScrolled = window.scrollY > 20;
-            if (isScrolled !== scrolled) {
-                setScrolled(isScrolled);
-            }
-        };
+function Navbar() {
+  const [activeSection, setActiveSection] = useState('home')
+  const [menuOpen, setMenuOpen] = useState(false)
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [scrolled]);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
 
-    const navStyle = {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        padding: scrolled ? '0.8rem 1.5rem' : '1.2rem 1.5rem',
-        backgroundColor: 'var(--nav-bg)', // Always have background on mobile
-        backdropFilter: 'blur(10px)',
-        transition: 'all 0.3s ease',
-        zIndex: 1000,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderBottom: '1px solid var(--border-color)' // Always show border
-    };
-
-    const logoStyle = {
-        fontSize: '1.25rem',
-        fontWeight: '700',
-        color: 'var(--text-color)',
-        letterSpacing: '-0.5px'
-    };
-
-    const linkContainerStyle = {
-        display: 'flex',
-        gap: '1.5rem',
-    };
-
-    const linkStyle = {
-        color: 'var(--text-color)',
-        fontWeight: '500',
-        fontSize: '0.95rem',
-    };
-
-    // Add media query styles for mobile
-    const mobileStyles = `
-        @media (max-width: 768px) {
-            nav {
-                padding: 0.6rem 1rem !important;
-            }
-            nav > div:first-child {
-                font-size: 1rem !important;
-            }
-            nav > div:last-child {
-                gap: 0.8rem !important;
-            }
-            nav a {
-                font-size: 0.85rem !important;
-            }
+        if (visible[0]?.target?.id) {
+          setActiveSection(visible[0].target.id)
         }
-    `;
+      },
+      {
+        rootMargin: '-35% 0px -45% 0px',
+        threshold: [0.2, 0.45, 0.7],
+      },
+    )
 
-    return (
-        <>
-            <style>{mobileStyles}</style>
-            <nav style={navStyle}>
-                <div style={logoStyle}>MyPortfolio</div>
-                <div style={linkContainerStyle}>
-                    <a href="#hero" style={linkStyle}>Home</a>
-                    <a href="#projects" style={linkStyle}>Projects</a>
-                    <a href="#hobbies" style={linkStyle}>Hobbies</a>
-                    <a href="#contact" style={linkStyle}>Contact</a>
-                </div>
-            </nav>
-        </>
-    );
-};
+    SECTION_IDS.forEach((id) => {
+      const element = document.getElementById(id)
+      if (element) {
+        observer.observe(element)
+      }
+    })
 
-export default Navbar;
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const closeMenu = () => setMenuOpen(false)
+    window.addEventListener('resize', closeMenu)
+    return () => window.removeEventListener('resize', closeMenu)
+  }, [])
+
+  return (
+    <header className="site-header">
+      <div className="nav-frame">
+        <a className="brand-mark" href="#home" aria-label="Aaron Chen home">
+          <span className="brand-glyph">AC</span>
+          <span className="brand-copy">
+            <strong>Aaron Chen</strong>
+            <small>Research x Engineering</small>
+          </span>
+        </a>
+
+        <button
+          className="nav-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <nav className={`nav-links ${menuOpen ? 'is-open' : ''}`}>
+          {navLinks.map((link) => {
+            const sectionId = link.href.replace('#', '')
+            const isActive = activeSection === sectionId
+
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className={isActive ? 'is-active' : ''}
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+              </a>
+            )
+          })}
+        </nav>
+      </div>
+    </header>
+  )
+}
+
+export default Navbar

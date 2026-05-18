@@ -1,17 +1,34 @@
-const Contact = () => {
-    return (
-        <section id="contact" style={{ padding: 'var(--spacing-section) 1.5rem', textAlign: 'center' }}>
-            <div className="container" style={{ maxWidth: '500px', margin: '0 auto' }}>
-                <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: 'var(--text-color)' }}>Get In Touch</h2>
-                <p style={{ fontSize: '1.05rem', color: 'var(--text-color-secondary)', marginBottom: '2rem' }}>
-                    My inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!
-                </p>
-                <a href="mailto:aaronchen0316@gmail.com">
-                    <button style={{ padding: '0.8rem 1.6rem' }}>Say Hello</button>
-                </a>
-            </div>
-        </section>
-    );
-};
+import SectionHeader from './SectionHeader'
+import { contact } from '../content/siteContent'
 
-export default Contact;
+function Contact() {
+  return (
+    <section id="contact" className="section section-contact">
+      <SectionHeader
+        eyebrow="Contact"
+        title="Get in touch"
+        description={contact.intro}
+      />
+
+      <div className="contact-card">
+        <div>
+          <span className="contact-label">Email</span>
+          <a className="contact-link" href={`mailto:${contact.email}`}>
+            {contact.email}
+          </a>
+        </div>
+
+        <div className="contact-actions">
+          <a className="button-primary" href={`mailto:${contact.email}`}>
+            Email
+          </a>
+          <a className="button-secondary" href="#home">
+            Back to top
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Contact

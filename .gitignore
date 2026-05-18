@@ -151,3 +151,9 @@ vite.config.ts.timestamp-*
 *.sln
 *.sw?
 *.local
+
+# Python backend artifacts
+__pycache__/
+chat_api/.venv/
+chat_api/data/vector_store/
+chat_api/data/analytics/
