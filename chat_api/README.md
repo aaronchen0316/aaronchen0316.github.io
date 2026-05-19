@@ -50,3 +50,6 @@ When the Vite frontend is running on `localhost` or `127.0.0.1`, it will fall ba
 - The included `Procfile` exposes the FastAPI app as:
   - `uvicorn app.server:app --host 0.0.0.0 --port $PORT`
 - If Railway does not auto-detect it, set the same command manually in service settings
+- To avoid runtime startup failure on first deploy, set Railway Build Command to:
+  - `pip install -r requirements.txt && CHAT_ALLOW_EMBEDDING_DOWNLOAD=1 python -m app.warm_model`
+- This pre-downloads the sentence-transformer into `chat_api/.cache/sentence-transformers` during build so runtime can load from local cache only
