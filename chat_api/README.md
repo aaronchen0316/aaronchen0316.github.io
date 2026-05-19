@@ -44,3 +44,9 @@ When the Vite frontend is running on `localhost` or `127.0.0.1`, it will fall ba
 - frontend: GitHub Pages
 - backend: Railway / Render / similar Python host
 - public papers are already vendored under `chat_api/data/pdf`, so cloud deploys can ingest directly from repo contents
+
+## Railway
+- Set Railway service Root Directory to `/chat_api`
+- The included `Procfile` exposes the FastAPI app as:
+  - `uvicorn app.server:app --host 0.0.0.0 --port $PORT`
+- If Railway does not auto-detect it, set the same command manually in service settings

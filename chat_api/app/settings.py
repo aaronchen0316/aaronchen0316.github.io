@@ -7,12 +7,11 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_PROFILE_DIR = REPO_ROOT / "chat_api" / "content" / "profile"
-DEFAULT_VECTOR_STORE_DIR = REPO_ROOT / "chat_api" / "data" / "vector_store"
-DEFAULT_ANALYTICS_PATH = REPO_ROOT / "chat_api" / "data" / "analytics" / "chat_metrics.jsonl"
-DEFAULT_EXTERNAL_PDF_DIR = Path("/Users/aaronchen/Documents/Code/learning/RAG_paper/data/pdf")
-DEFAULT_LOCAL_PDF_DIR = REPO_ROOT / "chat_api" / "data" / "pdf"
+SERVICE_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_PROFILE_DIR = SERVICE_ROOT / "content" / "profile"
+DEFAULT_VECTOR_STORE_DIR = SERVICE_ROOT / "data" / "vector_store"
+DEFAULT_ANALYTICS_PATH = SERVICE_ROOT / "data" / "analytics" / "chat_metrics.jsonl"
+DEFAULT_LOCAL_PDF_DIR = SERVICE_ROOT / "data" / "pdf"
 
 
 @dataclass(frozen=True)
@@ -31,9 +30,7 @@ def _resolve_pdf_dir() -> Path:
     configured = os.getenv("CHAT_PDF_DIR")
     if configured:
         return Path(configured).expanduser().resolve()
-    if DEFAULT_LOCAL_PDF_DIR.exists():
-        return DEFAULT_LOCAL_PDF_DIR
-    return DEFAULT_EXTERNAL_PDF_DIR
+    return DEFAULT_LOCAL_PDF_DIR
 
 
 def get_settings() -> Settings:
