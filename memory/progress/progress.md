@@ -1,0 +1,28 @@
+# Progress
+
+- Portfolio v1 plan documented.
+- Repo now has local memory files and context glossary.
+- Frontend redesign implemented with new sections, content model, and chat widget integration path.
+- Chat API scaffold implemented with ingestion, retrieval, scope guards, SSE streaming, and minimal analytics.
+- Frontend build and lint pass locally.
+- Backend guard unit tests and syntax checks pass locally.
+- Backend dependency install, ingest, health check, and streaming chat smoke test pass locally.
+- Frontend dev server startup path verified: use Homebrew Node for local Vite runs; Codex-app Node hits macOS native-module signature validation with Rollup.
+- Chat widget now defaults local development traffic to `http://localhost:8000` and shows user-facing status text instead of the raw `VITE_CHAT_API_URL` requirement.
+- Chat widget now translates browser-level fetch failures into a deployment-oriented error instead of exposing the raw `Failed to fetch` string.
+- Chat widget does not hardcode answer content; when the backend is unavailable it now falls back only to generic unavailable/error messaging.
+- Backend runtime smoke coverage now includes real ingest and uvicorn `/health` integration tests.
+- `app.ingest` now prefers the locally cached embedding model and avoids long network retry hangs unless download opt-in is explicitly enabled.
+- Chat widget now uses fixed-height editorial-light layout, toggle launcher close/open behavior, reset-on-close starter prompts, and single paper-reference footer rendering.
+- Chat answer shaping now targets short conversational prose with frontend/backend cleanup against markdown-style output.
+- Homepage hero now uses a centered single-column intro with reduced typography, a quieter name-first treatment, and more professional section copy across the landing page.
+- Frontend lint now ignores local virtualenv directories so `npm run lint` reflects project source files instead of third-party Python packages.
+- Projects section now uses a shared infinite-loop carousel for both Research and Engineering, with Research expanded to all seven papers from the corpus and a tighter editorial page hierarchy.
+- Projects carousel now uses 3 non-overlapping visible desktop cards plus 2 smaller faded ghost cards at the edges; Research cards omit summaries but still show `View paper`.
+- Chatbot non-paper knowledge base now includes merged resume-derived markdown for summary, industry experience, research experience, projects, education, and skills.
+- Chatbot scope control now uses retrieval evidence instead of a brittle keyword allowlist, while keeping deterministic private-topic blocking.
+- Chat answer prompt now explicitly asks the model to minimize hyphen usage in generated prose.
+- Chatbot profile markdown is now indexed section-by-section with richer metadata, and retrieval now blends query normalization, reranking, and lexical rescue over the small personal corpus.
+- Backend now has a checked-in 50-question recruiter-style regression harness that exercises education, work history, papers, projects, skills, hobbies, contact, and blocked/off-topic cases against a fresh temporary index.
+- Rebuilt the persistent chat vector store after the section-aware ingestion change; the current on-disk index now contains 604 chunks.
+- Public paper PDFs are now vendored under `chat_api/data/pdf`, so cloud deploys no longer depend on a Mac-local corpus path.

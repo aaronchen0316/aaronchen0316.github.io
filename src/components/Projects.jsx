@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import SectionHeader from './SectionHeader'
+import ProjectCarousel from './ProjectCarousel'
 import { engineeringProjects, researchProjects } from '../content/siteContent'
 
 const PROJECT_GROUPS = {
@@ -9,14 +10,25 @@ const PROJECT_GROUPS = {
 
 function Projects() {
   const [activeGroup, setActiveGroup] = useState('research')
+  const [activeIndexes, setActiveIndexes] = useState({
+    research: 0,
+    engineering: 0,
+  })
   const items = PROJECT_GROUPS[activeGroup]
 
+  function shiftCarousel(direction) {
+    setActiveIndexes((current) => ({
+      ...current,
+      [activeGroup]: (current[activeGroup] + direction + items.length) % items.length,
+    }))
+  }
+
   return (
-    <section id="projects" className="section">
+    <section id="projects" className="section section-projects">
       <SectionHeader
         eyebrow="Projects"
         title="Research and software"
-        description="Selected papers and software projects in materials modeling, machine learning, and technical tooling."
+        description="Research papers and software projects presented as the main body of work across materials modeling, machine learning, and scientific tooling."
       />
 
       <div className="segmented-control" role="tablist" aria-label="Project type">
@@ -36,34 +48,13 @@ function Projects() {
         </button>
       </div>
 
-      <div className="project-grid">
-        {items.map((project) => (
-          <article key={project.title} className="project-card">
-            {project.image ? (
-              <img className="project-image" src={project.image} alt={project.title} />
-            ) : (
-              <div className="project-image project-image-fallback">
-                <span>Build</span>
-              </div>
-            )}
-
-            <div className="project-body">
-              <div className="tag-row">
-                {project.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-
-              <h3>{project.title}</h3>
-              <p>{project.summary}</p>
-
-              <a href={project.link} target={project.link.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-                View {activeGroup === 'research' ? 'paper' : 'project'}
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
+      <ProjectCarousel
+        items={items}
+        track={activeGroup}
+        activeIndex={activeIndexes[activeGroup]}
+        onPrevious={() => shiftCarousel(-1)}
+        onNext={() => shiftCarousel(1)}
+      />
     </section>
   )
 }

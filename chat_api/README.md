@@ -4,7 +4,7 @@ Separate backend for the GitHub Pages frontend.
 
 ## What it does
 - loads authored profile markdown from `chat_api/content/profile`
-- reuses local paper PDFs from `/Users/aaronchen/Documents/Code/learning/RAG_paper/data/pdf` by default
+- ingests repo-local paper PDFs from `chat_api/data/pdf` by default
 - builds a Chroma vector store
 - answers only portfolio-related questions
 - streams responses as Server-Sent Events
@@ -12,7 +12,7 @@ Separate backend for the GitHub Pages frontend.
 
 ## Environment
 - `OPENROUTER_API_KEY_RAG`: required for chat generation
-- `CHAT_PDF_DIR`: optional override for research-paper directory
+- `CHAT_PDF_DIR`: optional override for research-paper directory. Default is repo-local `chat_api/data/pdf`
 - `CHAT_PROFILE_DIR`: optional override for authored profile docs
 - `CHAT_VECTOR_STORE_DIR`: optional override for Chroma persistence
 - `CHAT_ALLOWED_ORIGINS`: comma-separated frontend origins
@@ -43,4 +43,4 @@ When the Vite frontend is running on `localhost` or `127.0.0.1`, it will fall ba
 ## Production shape
 - frontend: GitHub Pages
 - backend: Railway / Render / similar Python host
-- if deployment host cannot see local PDF path, copy PDFs into a deployment-accessible directory and set `CHAT_PDF_DIR`
+- public papers are already vendored under `chat_api/data/pdf`, so cloud deploys can ingest directly from repo contents

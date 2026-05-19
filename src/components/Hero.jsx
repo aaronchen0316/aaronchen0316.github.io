@@ -16,12 +16,6 @@ function Hero() {
             Contact
           </a>
         </div>
-
-        <ul className="signal-list">
-          {hero.highlights.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
       </div>
     </section>
   )

@@ -3,7 +3,7 @@ import { hobbies } from '../content/siteContent'
 
 function Hobbies() {
   return (
-    <section id="hobbies" className="section">
+    <section id="hobbies" className="section section-hobbies">
       <SectionHeader
         eyebrow="Hobbies"
         title="Interests outside work"

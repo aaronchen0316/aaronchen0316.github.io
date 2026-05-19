@@ -177,7 +177,7 @@ img {
   z-index: 1;
   width: min(var(--container), calc(100% - 2rem));
   margin: 0 auto;
-  padding: 6rem 0;
+  padding: 5rem 0;
 }
 
 .section-alt {
@@ -189,14 +189,14 @@ img {
 }
 
 .hero-section {
-  padding-top: 4rem;
-  min-height: calc(84vh - 5rem);
+  padding-top: 3rem;
+  min-height: calc(72vh - 5rem);
   display: grid;
   align-items: center;
 }
 
 .hero-copy {
-  width: min(100%, 50rem);
+  width: min(100%, 42rem);
   margin: 0 auto;
   text-align: center;
 }
@@ -234,7 +234,7 @@ h1 {
 
 h2 {
   font-size: clamp(2.2rem, 4vw, 3.5rem);
-  max-width: 12ch;
+  max-width: none;
 }
 
 h3 {
@@ -254,9 +254,9 @@ h3 {
 }
 
 .hero-subtitle {
-  max-width: 40rem;
-  margin: 1.2rem auto 0;
-  font-size: 1rem;
+  max-width: 34rem;
+  margin: 1rem auto 0;
+  font-size: 0.98rem;
 }
 
 .hero-actions,
@@ -269,6 +269,7 @@ h3 {
 
 .hero-actions {
   justify-content: center;
+  margin-top: 1.6rem;
 }
 
 .button-primary,
@@ -316,32 +317,6 @@ h3 {
   transform: translateY(-1px);
 }
 
-.signal-list {
-  display: grid;
-  gap: 0.75rem;
-  list-style: none;
-  padding: 0;
-  margin: 2rem auto 0;
-  width: fit-content;
-  text-align: left;
-}
-
-.signal-list li {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: var(--text);
-}
-
-.signal-list li::before {
-  content: "";
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  background: var(--brand);
-  flex: 0 0 auto;
-}
-
 .project-card,
 .experience-card,
 .hobby-card,
@@ -371,20 +346,20 @@ h3 {
 
 .section-header {
   display: grid;
-  gap: 0.8rem;
-  margin-bottom: 2rem;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
 }
 
 .section-description {
-  max-width: 46rem;
+  max-width: 42rem;
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.98rem;
 }
 
 .segmented-control {
   display: inline-flex;
   gap: 0.6rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   padding: 0.35rem;
   border-radius: 999px;
   background: rgba(255, 250, 244, 0.62);
@@ -403,15 +378,10 @@ h3 {
   color: #f6eee2;
 }
 
-.project-grid,
 .experience-grid,
 .hobby-grid {
   display: grid;
   gap: 1.2rem;
-}
-
-.project-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .project-card {
@@ -438,7 +408,6 @@ h3 {
 }
 
 .project-body,
-.experience-card,
 .hobby-card,
 .contact-card {
   padding: 1.35rem;
@@ -460,11 +429,6 @@ h3 {
   font-size: 0.78rem;
 }
 
-.project-body {
-  display: grid;
-  gap: 1rem;
-}
-
 .project-body a,
 .contact-link {
   width: fit-content;
@@ -474,6 +438,7 @@ h3 {
 
 .experience-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .experience-card,
@@ -484,8 +449,8 @@ h3 {
 .experience-card {
   display: grid;
   align-content: start;
-  gap: 1rem;
-  padding: 1.6rem;
+  gap: 0.8rem;
+  padding: 1.35rem;
 }
 
 .experience-card p,
@@ -504,10 +469,12 @@ h3 {
 
 .hobby-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
 }
 
 .section-contact {
-  padding-bottom: 8rem;
+  padding-top: 2rem;
+  padding-bottom: 6rem;
 }
 
 .contact-card {
@@ -517,6 +484,218 @@ h3 {
   justify-content: space-between;
   gap: 1rem;
   border-radius: var(--radius);
+}
+
+.section-projects {
+  margin-top: 0.5rem;
+  padding-top: 2.6rem;
+  padding-bottom: 3rem;
+}
+
+.section-projects .section-header {
+  margin-bottom: 1.2rem;
+}
+
+.section-projects .section-description {
+  max-width: 36rem;
+}
+
+.section-experience {
+  padding-top: 3.2rem;
+  padding-bottom: 3rem;
+}
+
+.section-hobbies {
+  padding-top: 2.75rem;
+  padding-bottom: 1.25rem;
+}
+
+.section-hobbies .section-header {
+  margin-bottom: 1rem;
+}
+
+.section-hobbies .section-description {
+  max-width: 34rem;
+}
+
+.section-compact {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+}
+
+.project-carousel {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.carousel-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.carousel-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(31, 37, 34, 0.08);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+}
+
+.carousel-status strong {
+  color: var(--text);
+  font-size: 0.82rem;
+}
+
+.carousel-arrow {
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid rgba(31, 37, 34, 0.1);
+  border-radius: 50%;
+  background: rgba(255, 250, 244, 0.86);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.carousel-arrow:hover {
+  transform: translateY(-1px);
+  background: var(--surface-accent);
+  color: #f6eee2;
+}
+
+.carousel-stage {
+  position: relative;
+  min-height: 25.5rem;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.carousel-card {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-rows: minmax(12.25rem, 13.5rem) auto;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  transition:
+    left 280ms ease,
+    transform 280ms ease,
+    opacity 280ms ease,
+    box-shadow 280ms ease,
+    border-color 280ms ease;
+}
+
+.carousel-card-media {
+  position: relative;
+  min-height: 0;
+}
+
+.carousel-card .project-image,
+.carousel-card .project-image-fallback {
+  height: 100%;
+  min-height: 12.25rem;
+}
+
+.carousel-card-body {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  padding: 0.9rem 0.95rem 1rem;
+  background: rgba(255, 251, 246, 0.95);
+}
+
+.carousel-card-body h3 {
+  font-size: 1.06rem;
+  line-height: 1.2;
+}
+
+.carousel-card-body p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.carousel-card-body a {
+  width: fit-content;
+  color: var(--brand-deep);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.carousel-card-body .tag-row {
+  margin-bottom: 0.15rem;
+}
+
+.carousel-card.position-0 {
+  left: 36.5%;
+  width: 27%;
+  opacity: 1;
+  transform: none;
+  box-shadow: 0 18px 42px rgba(45, 33, 20, 0.14);
+  border-color: rgba(181, 82, 51, 0.28);
+  z-index: 5;
+}
+
+.carousel-card.position--1,
+.carousel-card.position-1 {
+  width: 27%;
+  opacity: 1;
+  z-index: 4;
+}
+
+.carousel-card.position--1 {
+  left: 7%;
+  transform: translateX(0);
+}
+
+.carousel-card.position-1 {
+  left: 66%;
+  transform: translateX(0);
+}
+
+.carousel-card.position--2,
+.carousel-card.position-2 {
+  width: 14%;
+  opacity: 0.26;
+  z-index: 2;
+  transform: scale(0.88);
+}
+
+.carousel-card.position--2 {
+  left: -6%;
+}
+
+.carousel-card.position-2 {
+  left: 92%;
+}
+
+.carousel-card.position--1 .carousel-card-body,
+.carousel-card.position-1 .carousel-card-body,
+.carousel-card.position--2 .carousel-card-body,
+.carousel-card.position-2 .carousel-card-body {
+  gap: 0.55rem;
+}
+
+.carousel-card.position--2 .carousel-card-body,
+.carousel-card.position-2 .carousel-card-body {
+  display: none;
+}
+
+.project-carousel-engineering .carousel-card.position-0 {
+  box-shadow: 0 16px 38px rgba(45, 33, 20, 0.11);
 }
 
 .site-footer {
@@ -735,7 +914,6 @@ h3 {
 }
 
 @media (max-width: 980px) {
-  .project-grid,
   .experience-grid,
   .hobby-grid,
   .contact-card {
@@ -744,6 +922,43 @@ h3 {
 
   .hero-section {
     min-height: auto;
+  }
+
+  .carousel-stage {
+    min-height: 23rem;
+  }
+
+  .carousel-card.position-0 {
+    width: 32%;
+    left: 34%;
+  }
+
+  .carousel-card.position--1,
+  .carousel-card.position-1 {
+    width: 25%;
+  }
+
+  .carousel-card.position--1 {
+    left: 4%;
+    transform: translateX(0);
+  }
+
+  .carousel-card.position-1 {
+    left: 71%;
+    transform: translateX(0);
+  }
+
+  .carousel-card.position--2,
+  .carousel-card.position-2 {
+    width: 11%;
+  }
+
+  .carousel-card.position--2 {
+    left: -4.5%;
+  }
+
+  .carousel-card.position-2 {
+    left: 93.5%;
   }
 }
 
@@ -776,7 +991,7 @@ h3 {
 
   .section {
     width: min(var(--container), calc(100% - 1.2rem));
-    padding: 4.5rem 0;
+    padding: 4rem 0;
   }
 
   .chat-widget {
@@ -790,12 +1005,62 @@ h3 {
     border-radius: 1.65rem;
   }
 
-  .section-alt {
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
-  }
-
   h1 {
     font-size: clamp(2.35rem, 12vw, 3.6rem);
+  }
+
+  .hero-copy {
+    width: min(100%, 32rem);
+  }
+
+  .section-projects {
+    padding-top: 2.5rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .section-experience {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .section-hobbies,
+  .section-compact {
+    padding-top: 1.75rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .carousel-toolbar {
+    gap: 0.75rem;
+  }
+
+  .carousel-stage {
+    min-height: 24.5rem;
+  }
+
+  .carousel-card.position-0 {
+    width: 100%;
+    left: 0;
+    transform: none;
+  }
+
+  .carousel-card.position--1,
+  .carousel-card.position-1,
+  .carousel-card.position--2,
+  .carousel-card.position-2 {
+    display: none;
+  }
+
+  .carousel-card .project-image,
+  .carousel-card .project-image-fallback {
+    min-height: 12rem;
+  }
+
+  .carousel-card-body {
+    gap: 0.75rem;
+    padding: 0.95rem 0.95rem 1rem;
+  }
+
+  .hobby-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

@@ -1,16 +1,42 @@
-# personal_website
-Github repo for my personal website
+# Aaron Portfolio
 
-## React + Vite Setup
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio frontend in React + Vite, designed for GitHub Pages.
 
-Currently, two official plugins are available:
+## Architecture
+- `src/`: portfolio frontend
+- `chat_api/`: separate Python chat backend
+- `chat_api/data/pdf/`: repo-local public paper corpus for backend ingestion and cloud deploys
+- `plan.md`: implementation plan for portfolio + chatbot v1
+- `memory/`: repo-local working memory and decisions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Frontend
+```bash
+npm install
+npm run dev
+```
 
-### React Compiler
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+To connect live chat locally, set:
 
-### Expanding the ESLint configuration
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+VITE_CHAT_API_URL=http://localhost:8000
+```
+
+If `VITE_CHAT_API_URL` is not set, the frontend will automatically target `http://localhost:8000` when running on `localhost` or `127.0.0.1`. Production still needs an explicit `VITE_CHAT_API_URL`.
+
+## Chat API
+See [chat_api/README.md](/Users/aaronchen/Documents/Code/aaronchen0316.github.io/chat_api/README.md).
+
+Typical local flow:
+
+```bash
+cd chat_api
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 -m app.ingest
+uvicorn app.server:app --reload
+```
+
+## Deployment shape
+- frontend -> GitHub Pages
+- chat backend -> separate Python host such as Railway or Render

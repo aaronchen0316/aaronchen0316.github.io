@@ -11,11 +11,6 @@ export const hero = {
   tagline: 'Materials x Machine Learning x Scientific Software',
   subtitle:
     'Materials scientist and machine learning researcher working on modeling, simulation, and scientific software for materials and molecular systems.',
-  highlights: [
-    'Materials and molecular machine learning',
-    'Simulation workflows and active learning',
-    'Scientific software and retrieval-based tools',
-  ],
 }
 
 export const researchProjects = [
@@ -54,6 +49,33 @@ export const researchProjects = [
     link: 'https://pubs.rsc.org/en/content/articlelanding/2023/sm/d3sm01140b/unauth',
     image: '/papers/pd.jpeg',
   },
+  {
+    title:
+      'Neutrophil membrane-coated nanoparticles inhibit synovial inflammation and alleviate joint damage in inflammatory arthritis',
+    summary:
+      'Nanoparticle platform for reducing synovial inflammation and limiting joint damage in inflammatory arthritis.',
+    tags: ['Nanomedicine', 'Inflammation', 'Drug Delivery'],
+    link: 'https://www.nature.com/articles/s41565-018-0254-4',
+    image: '/papers/np.png',
+  },
+  {
+    title:
+      'Solvent-Molecule Interactions Govern Crystal-Habit Selection in Naphthalene Tetracarboxylic Diimides',
+    summary:
+      'Study of how solvent-molecule interactions influence crystal-habit selection in naphthalene tetracarboxylic diimides.',
+    tags: ['Crystal Habit', 'Organic Crystals', 'Solvent Effects'],
+    link: 'https://pubs.acs.org/doi/abs/10.1021/acs.chemmater.9b03142',
+    image: '/papers/ntcdi.webp',
+  },
+  {
+    title:
+      'Steering Amine-CO2 Chemistry: A Molecular Insight into the Amino Site Relationship of Carbamate and Protonated Amine',
+    summary:
+      'Molecular analysis of amino-site relationships that control carbamate and protonated-amine formation in amine-CO2 chemistry.',
+    tags: ['CO2 Chemistry', 'Molecular Modeling', 'Reaction Mechanisms'],
+    link: 'https://pubs.acs.org/doi/abs/10.1021/acsomega.5c03663',
+    image: '/papers/solvent.webp',
+  },
 ]
 
 export const engineeringProjects = [
@@ -65,10 +87,24 @@ export const engineeringProjects = [
     link: '#contact',
   },
   {
+    title: 'Chat API and Scope Guardrails',
+    summary:
+      'Separate FastAPI backend with retrieval, streaming responses, and scope controls grounded in profile documents and papers.',
+    tags: ['FastAPI', 'SSE', 'Guardrails'],
+    link: '#contact',
+  },
+  {
     title: 'RAG Paper Prototype',
     summary:
       'Local document question-answering workflow using Chroma, sentence-transformer embeddings, and LLM-backed generation over paper PDFs.',
     tags: ['ChromaDB', 'SentenceTransformers', 'OpenRouter'],
+    link: '#projects',
+  },
+  {
+    title: 'Corpus Ingestion Pipeline',
+    summary:
+      'Ingestion workflow for combining authored profile documents with research papers into one retrieval-ready personal corpus.',
+    tags: ['Embeddings', 'ChromaDB', 'Data Pipeline'],
     link: '#projects',
   },
   {

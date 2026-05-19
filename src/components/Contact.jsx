@@ -3,7 +3,7 @@ import { contact } from '../content/siteContent'
 
 function Contact() {
   return (
-    <section id="contact" className="section section-contact">
+    <section id="contact" className="section section-contact section-compact">
       <SectionHeader
         eyebrow="Contact"
         title="Get in touch"

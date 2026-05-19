@@ -3,7 +3,7 @@ import { experienceThemes } from '../content/siteContent'
 
 function Experience() {
   return (
-    <section id="experience" className="section section-alt">
+    <section id="experience" className="section section-experience">
       <SectionHeader
         eyebrow="Experience"
         title="Focus areas"
