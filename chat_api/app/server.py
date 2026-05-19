@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 
 from app.analytics import log_metric
 from app.embeddings import EmbeddingManager
-from app.guards import evaluate_scope
+from app.guards import detect_blocked_query, evaluate_retrieval_scope
 from app.rag import RAGRetriever, build_llm, build_messages, build_sources, stream_answer
 from app.settings import get_settings
 from app.vector_store import VectorStore
@@ -54,18 +54,19 @@ def health() -> dict:
 
 @app.post("/chat")
 async def chat(request: ChatRequest) -> StreamingResponse:
-    scope = evaluate_scope(request.query)
+    blocked_scope = detect_blocked_query(request.query)
 
     async def event_stream():
         start = time.perf_counter()
         success = False
         source_count = 0
+        topic = blocked_scope.topic if blocked_scope else "general"
 
         try:
-            if not scope.supported:
-                message = scope.reply_hint
+            if blocked_scope is not None:
+                message = blocked_scope.reply_hint
                 yield sse_payload({"type": "token", "content": message})
-                yield sse_payload({"type": "done", "sources": [], "topic": scope.topic})
+                yield sse_payload({"type": "done", "sources": [], "topic": blocked_scope.topic})
                 success = True
                 return
 
@@ -78,22 +79,24 @@ async def chat(request: ChatRequest) -> StreamingResponse:
                 )
                 return
 
-            llm = build_llm(
-                model=settings.llm_model,
-                base_url=settings.llm_base_url,
-                api_key_env=settings.api_key_env,
-            )
             results = retriever.retrieve(request.query, top_k=5)
             sources = [asdict(source) for source in build_sources(results)]
             source_count = len(sources)
+            scope = evaluate_retrieval_scope(request.query, results)
+            topic = scope.topic
 
-            if not results:
-                message = "I do not have enough grounded context for that yet. Ask about Aaron's papers, projects, experience, hobbies, or contact details."
+            if not scope.supported:
+                message = scope.reply_hint
                 yield sse_payload({"type": "token", "content": message})
                 yield sse_payload({"type": "done", "sources": [], "topic": scope.topic})
                 success = True
                 return
 
+            llm = build_llm(
+                model=settings.llm_model,
+                base_url=settings.llm_base_url,
+                api_key_env=settings.api_key_env,
+            )
             context = "\n\n".join(doc["content"] for doc in results)
             messages = build_messages(request.query, context, request.history)
             for chunk in stream_answer(llm, messages):
@@ -107,7 +110,7 @@ async def chat(request: ChatRequest) -> StreamingResponse:
             elapsed_ms = int((time.perf_counter() - start) * 1000)
             log_metric(
                 settings.analytics_path,
-                topic=scope.topic,
+                topic=topic,
                 latency_ms=elapsed_ms,
                 success=success,
                 source_count=source_count,

@@ -7,6 +7,8 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+from app.source_metadata import extract_markdown_metadata
+
 
 DEFAULT_CHUNK_SIZE = 900
 DEFAULT_CHUNK_OVERLAP = 180
@@ -24,16 +26,20 @@ def load_profile_documents(profile_directory: Path) -> list[Document]:
         text = file_path.read_text(encoding="utf-8").strip()
         if not text:
             continue
-        documents.append(
-            Document(
-                page_content=text,
-                metadata={
-                    "source_file": file_path.name,
-                    "source_kind": "profile",
-                    "page": 0,
-                },
+        base_metadata = extract_markdown_metadata(text, file_path.name)
+        for section_text, section_title in _split_markdown_sections(text, base_metadata["source_title"]):
+            documents.append(
+                Document(
+                    page_content=section_text,
+                    metadata={
+                        "source_file": file_path.name,
+                        "source_kind": "profile",
+                        "page": 0,
+                        "section_title": section_title,
+                        **base_metadata,
+                    },
+                )
             )
-        )
     return documents
 
 
@@ -77,3 +83,49 @@ def build_corpus(profile_directory: Path, pdf_directory: Path) -> list[Document]
     if not documents:
         raise ValueError("No profile docs or PDFs found for ingestion.")
     return split_documents(documents)
+
+
+def _split_markdown_sections(text: str, source_title: str) -> list[tuple[str, str]]:
+    lines = text.splitlines()
+    intro_lines: list[str] = []
+    section_title = source_title
+    section_lines: list[str] = []
+    sections: list[tuple[str, str]] = []
+
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith("# "):
+            continue
+        if stripped.startswith("## "):
+            if section_lines:
+                sections.append((_compose_section_text(source_title, section_title, intro_lines, section_lines), section_title))
+            section_title = stripped[3:].strip()
+            section_lines = [stripped]
+            continue
+        if section_lines:
+            section_lines.append(line)
+        else:
+            intro_lines.append(line)
+
+    if section_lines:
+        sections.append((_compose_section_text(source_title, section_title, intro_lines, section_lines), section_title))
+    else:
+        sections.append((text, source_title))
+
+    return sections
+
+
+def _compose_section_text(
+    source_title: str,
+    section_title: str,
+    intro_lines: list[str],
+    section_lines: list[str],
+) -> str:
+    intro_text = "\n".join(line for line in intro_lines if line.strip()).strip()
+    body_text = "\n".join(section_lines).strip()
+    parts = [f"# {source_title}"]
+    if intro_text:
+        parts.append(intro_text)
+    if body_text:
+        parts.append(body_text)
+    return "\n\n".join(parts)

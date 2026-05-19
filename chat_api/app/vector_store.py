@@ -63,5 +63,15 @@ class VectorStore:
     def query(self, query_embedding: Sequence[float], top_k: int = 5) -> dict[str, Any]:
         return self.collection.query(query_embeddings=[list(query_embedding)], n_results=top_k)
 
+    def all_documents(self) -> list[dict[str, Any]]:
+        payload = self.collection.get(include=["documents", "metadatas"])
+        ids = payload.get("ids", [])
+        documents = payload.get("documents", [])
+        metadatas = payload.get("metadatas", [])
+        return [
+            {"id": doc_id, "content": document, "metadata": metadata}
+            for doc_id, document, metadata in zip(ids, documents, metadatas)
+        ]
+
     def count(self) -> int:
         return int(self.collection.count())
