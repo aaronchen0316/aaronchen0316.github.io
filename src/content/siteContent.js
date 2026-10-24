@@ -80,39 +80,37 @@ export const researchProjects = [
 
 export const engineeringProjects = [
   {
-    title: 'Portfolio and Research Chat Surface',
+    title: 'MatSci-Agent',
+    image: '/engineering/matsci-agent.svg',
     summary:
-      'Portfolio frontend on GitHub Pages with a separate chat API for retrieval-based questions over profile documents and papers.',
-    tags: ['React', 'Vite', 'FastAPI', 'RAG UX'],
-    link: '#contact',
+      'I built a research prototype that turns a materials question into a traceable shortlist of candidate compounds.',
+    description:
+      'Materials researchers can spend hours translating an idea into database filters and checking whether the results fit their goal. I built MatSci-Agent to turn a plain language request into a focused screening workflow. It interprets the question as structured constraints, searches Materials Project for candidates, applies chemistry checks, and returns a ranked shortlist with band gaps, stability information, and source properties. I also built a command line interface and API, added detailed traces so each selection can be inspected, and supported optional local model calculations for shortlisted band gaps. It is a research prototype for transparent screening, not a claim that the candidates have been experimentally validated.',
+    repository: 'https://github.com/aaronchen0316/MatSci-Agent',
+  },
+  {
+    title: 'Portfolio and Research Chat Surface',
+    image: '/engineering/portfolio-chat-surface.png',
+    summary:
+      'A portfolio where visitors can explore my research and ask questions about my work.',
+    description:
+      'Research papers and career details are often scattered across different places. I built this React portfolio and connected it to a research assistant so visitors can explore my background and papers in plain language. I designed the interface and prepared the frontend for GitHub Pages.',
   },
   {
     title: 'Chat API and Scope Guardrails',
+    image: '/engineering/chat-api-guardrails.png',
     summary:
-      'Separate FastAPI backend with retrieval, streaming responses, and scope controls grounded in profile documents and papers.',
-    tags: ['FastAPI', 'SSE', 'Guardrails'],
-    link: '#contact',
+      'An assistant that searches my documents and papers to answer relevant questions.',
+    description:
+      'A chat assistant can give a confident answer even when its sources do not support it. I built a FastAPI service that searches my profile and papers, streams responses, and checks whether the retrieved material supports each question. I added scope controls and tests to keep answers focused on my work.',
   },
   {
     title: 'RAG Paper Prototype',
+    image: '/engineering/rag-paper-prototype.png',
     summary:
-      'Local document question-answering workflow using Chroma, sentence-transformer embeddings, and LLM-backed generation over paper PDFs.',
-    tags: ['ChromaDB', 'SentenceTransformers', 'OpenRouter'],
-    link: '#projects',
-  },
-  {
-    title: 'Corpus Ingestion Pipeline',
-    summary:
-      'Ingestion workflow for combining authored profile documents with research papers into one retrieval-ready personal corpus.',
-    tags: ['Embeddings', 'ChromaDB', 'Data Pipeline'],
-    link: '#projects',
-  },
-  {
-    title: 'Scientific Workflow Tooling',
-    summary:
-      'Software and automation support for simulation-heavy research, including retrieval, data organization, and iteration workflows.',
-    tags: ['Automation', 'Scientific Python', 'AI Tooling'],
-    link: '#experience',
+      'A local tool that finds relevant passages in research PDFs and answers questions from them.',
+    description:
+      'Finding one detail across several papers takes time. I built a local prototype that reads PDFs, finds relevant passages with semantic search, and uses a language model to answer questions from those passages. The work gave me practical experience with document processing, search, and answers grounded in source material.',
   },
 ]
 
@@ -170,12 +168,6 @@ export const hobbies = [
     description: 'Outdoor activity helps balance long stretches of technical work.',
   },
 ]
-
-export const contact = {
-  email: 'aaronchen0316@gmail.com',
-  intro:
-    'For materials ML, scientific software, or related collaboration, email is the best way to reach me.',
-}
 
 export const chatConfig = {
   title: 'Ask About Aaron',

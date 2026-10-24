@@ -639,6 +639,176 @@ h3 {
   margin-bottom: 0.15rem;
 }
 
+.project-carousel-engineering .carousel-card {
+  grid-template-rows: 13.5rem minmax(0, 1fr);
+}
+
+.project-carousel-engineering .carousel-card-body {
+  gap: 0.5rem;
+}
+
+.project-carousel-engineering .carousel-card-body p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.project-title-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: rgba(123, 50, 27, 0.4);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.project-title-button:hover,
+.project-title-button:focus-visible {
+  color: var(--brand-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+.project-title-button:focus-visible,
+.project-details-close:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 4px;
+}
+
+.project-details-dialog {
+  width: min(42rem, calc(100% - 2rem));
+  max-height: min(42rem, calc(100dvh - 2rem));
+  padding: 0;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius);
+  background: var(--surface-strong);
+  color: var(--text);
+  box-shadow: 0 30px 90px rgba(22, 28, 25, 0.28);
+  animation: project-dialog-enter 200ms ease both;
+}
+
+.project-details-dialog::backdrop {
+  background: rgba(20, 27, 24, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.project-details-content {
+  position: relative;
+}
+
+.project-details-media {
+  height: clamp(12rem, 30vh, 16rem);
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+
+.project-details-dialog.has-repository .project-details-media {
+  height: clamp(10rem, 24vh, 12rem);
+}
+
+.project-details-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-details-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface-strong);
+  color: var(--text);
+  box-shadow: 0 6px 18px rgba(22, 28, 25, 0.12);
+  font-size: 1.65rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.project-details-close:hover {
+  transform: rotate(90deg);
+  background: var(--bg);
+}
+
+.project-details-copy {
+  padding: clamp(1.4rem, 4vw, 2.35rem);
+}
+
+.project-details-dialog.has-repository .project-details-copy {
+  padding-bottom: 1rem;
+}
+
+.project-details-copy .eyebrow {
+  margin-bottom: 0.65rem;
+}
+
+.project-details-copy h2 {
+  max-width: 34rem;
+  font-size: clamp(1.75rem, 3.5vw, 2.55rem);
+  line-height: 1.12;
+}
+
+.project-details-copy > h2 + p {
+  max-width: 37rem;
+  margin: 1.1rem 0 0;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.project-details-repository {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.4rem;
+  padding: 0.65rem 0.95rem;
+  border: 1px solid rgba(123, 50, 27, 0.2);
+  border-radius: 999px;
+  color: var(--brand-deep);
+  font-weight: 700;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.project-details-repository:hover,
+.project-details-repository:focus-visible {
+  border-color: var(--brand-deep);
+  background: rgba(181, 82, 51, 0.08);
+}
+
+.project-details-repository:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+@keyframes project-dialog-enter {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-details-dialog { animation: none; }
+  .project-details-close { transition: none; }
+}
+
 .carousel-card.position-0 {
   left: 36.5%;
   width: 27%;

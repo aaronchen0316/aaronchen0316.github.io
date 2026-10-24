@@ -1,25 +1,22 @@
 import SectionHeader from './SectionHeader'
-import { contact } from '../content/siteContent'
-
 function Contact() {
   return (
     <section id="contact" className="section section-contact section-compact">
       <SectionHeader
         eyebrow="Contact"
         title="Get in touch"
-        description={contact.intro}
       />
 
       <div className="contact-card">
         <div>
           <span className="contact-label">Email</span>
-          <a className="contact-link" href={`mailto:${contact.email}`}>
-            {contact.email}
+          <a className="contact-link" href="mailto:aaronchen0316@gmail.com">
+            aaronchen0316@gmail.com
           </a>
         </div>
 
         <div className="contact-actions">
-          <a className="button-primary" href={`mailto:${contact.email}`}>
+          <a className="button-primary" href="mailto:aaronchen0316@gmail.com">
             Email
           </a>
           <a className="button-secondary" href="#home">

@@ -7,7 +7,6 @@ function Hobbies() {
       <SectionHeader
         eyebrow="Hobbies"
         title="Interests outside work"
-        description="A few interests that shape observation, pacing, and time away from research and engineering work."
       />
 
       <div className="hobby-grid">

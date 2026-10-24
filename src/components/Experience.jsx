@@ -7,7 +7,6 @@ function Experience() {
       <SectionHeader
         eyebrow="Experience"
         title="Focus areas"
-        description="This section summarizes the main research, engineering, and working-style themes represented in the portfolio."
       />
 
       <div className="experience-grid">

@@ -8,11 +8,11 @@ function getLinkLabel(track) {
   return track === 'research' ? 'View paper' : 'View project'
 }
 
-function ProjectCard({ project, track, position, isActive }) {
-  const linkProps = project.link.startsWith('http')
+function ProjectCard({ project, track, position, isActive, onOpenProject }) {
+  const isEngineering = track === 'engineering'
+  const linkProps = !isEngineering && project.link.startsWith('http')
     ? { target: '_blank', rel: 'noreferrer' }
     : {}
-  const showSummary = position === 0 && track !== 'research'
   const isVisibleCard = Math.abs(position) <= 1
 
   return (
@@ -29,7 +29,7 @@ function ProjectCard({ project, track, position, isActive }) {
 
       {isVisibleCard ? (
         <div className="carousel-card-body">
-          {project.tags?.length ? (
+          {!isEngineering && project.tags?.length ? (
             <div className="tag-row">
               {project.tags.map((tag) => (
                 <span key={tag}>{tag}</span>
@@ -37,12 +37,20 @@ function ProjectCard({ project, track, position, isActive }) {
             </div>
           ) : null}
 
-          <h3>{project.title}</h3>
-          {showSummary && project.summary ? <p>{project.summary}</p> : null}
+          <h3>
+            {isEngineering ? (
+              <button type="button" className="project-title-button" onClick={() => onOpenProject(project)}>
+                {project.title}
+              </button>
+            ) : project.title}
+          </h3>
+          {isEngineering && project.summary ? <p>{project.summary}</p> : null}
 
-          <a href={project.link} {...linkProps}>
-            {getLinkLabel(track)}
-          </a>
+          {!isEngineering ? (
+            <a href={project.link} {...linkProps}>
+              {getLinkLabel(track)}
+            </a>
+          ) : null}
         </div>
       ) : (
         <div className="carousel-card-titleband">
@@ -53,7 +61,7 @@ function ProjectCard({ project, track, position, isActive }) {
   )
 }
 
-function ProjectCarousel({ items, activeIndex, onPrevious, onNext, track }) {
+function ProjectCarousel({ items, activeIndex, onPrevious, onNext, onOpenProject, track }) {
   const cards = CARD_POSITIONS.map((position) => {
     const item = items[modulo(activeIndex + position, items.length)]
     return (
@@ -63,6 +71,7 @@ function ProjectCarousel({ items, activeIndex, onPrevious, onNext, track }) {
         track={track}
         position={position}
         isActive={position === 0}
+        onOpenProject={onOpenProject}
       />
     )
   })

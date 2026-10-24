@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import SectionHeader from './SectionHeader'
 import ProjectCarousel from './ProjectCarousel'
+import ProjectDetailsDialog from './ProjectDetailsDialog'
 import { engineeringProjects, researchProjects } from '../content/siteContent'
 
 const PROJECT_GROUPS = {
@@ -10,6 +11,7 @@ const PROJECT_GROUPS = {
 
 function Projects() {
   const [activeGroup, setActiveGroup] = useState('research')
+  const [openProject, setOpenProject] = useState(null)
   const [activeIndexes, setActiveIndexes] = useState({
     research: 0,
     engineering: 0,
@@ -28,7 +30,6 @@ function Projects() {
       <SectionHeader
         eyebrow="Projects"
         title="Research and software"
-        description="Research papers and software projects presented as the main body of work across materials modeling, machine learning, and scientific tooling."
       />
 
       <div className="segmented-control" role="tablist" aria-label="Project type">
@@ -54,7 +55,11 @@ function Projects() {
         activeIndex={activeIndexes[activeGroup]}
         onPrevious={() => shiftCarousel(-1)}
         onNext={() => shiftCarousel(1)}
+        onOpenProject={setOpenProject}
       />
+      {openProject ? (
+        <ProjectDetailsDialog project={openProject} onClose={() => setOpenProject(null)} />
+      ) : null}
     </section>
   )
 }
